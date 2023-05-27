@@ -10,6 +10,7 @@ import {
 import ErrorPage from './pages/ErrorPage'
 import Login from './pages/Login'
 import Register from './pages/Register.jsx';
+import Dashboard from './pages/Dashboard.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path:'/login',
     element:<Login/>
+  },
+  {
+    path:'/dashboard',
+    element:<Dashboard/>
   },
   {
     path:'/register',

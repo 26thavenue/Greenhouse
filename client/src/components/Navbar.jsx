@@ -12,8 +12,8 @@ const Navbar = () => {
             <Link><p className='text-white py-[6px]'>Contact Us</p></Link>
             <Link><p className='text-white py-[6px]'>About Us</p></Link>
         
-            <Link><button className='bg-black text-white py-[6px] px-5 hover:bg-slate-600 rounded-sm'>Login</button></Link>
-            <Link><button className='bg-white text-black py-[6px] px-5 hover:bg-[#f4f4f4] rounded-sm'>Signup</button></Link>
+            <Link><button className='bg-black hover:transition-all ease-in delay-300 text-white py-[6px] px-5 hover:bg-slate-600 rounded-sm'>Login</button></Link>
+            <Link><button className='bg-white hover:transition-all ease-in delay-300 text-black py-[6px] px-5 hover:bg-[#f4f4f4] rounded-sm'>Signup</button></Link>
         
         </div>
        

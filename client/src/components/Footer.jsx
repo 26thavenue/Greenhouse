@@ -5,7 +5,7 @@ const Footer = () => {
        
         <img src='Logo.svg' alt='The logo' className='w-[300px] ' />
         <div>
-          <h1>Created by <Link to='https://linktr.ee/26th_avenue'>Me!!!</Link></h1>
+          <h1 className ='hover:underline'>Created by <Link to='https://linktr.ee/26th_avenue'>Me!!!</Link></h1>
         </div>
     </div>
   )
