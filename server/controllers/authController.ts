@@ -2,16 +2,22 @@ import {Request, Response} from 'express'
 import bcrypt from 'bcryptjs'
 import { hashPassword } from '../helper'
 import prisma from '../config/index'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+const secretkey = process.env.SECRET_KEY as string
 
 export const register = async(req:Request, res:Response) =>{
-    const {email,name,password}:{email:string,name:string,password:string}= req.body
+    const {email ,name,password} = req.body
 
-    if(!email || !name || !password){
-        return res.status(400).json({error: 'Please fill all fields'})
-    }
-    // ENSURE THEY FOLLOW A PARTICULAR FORMAT
-
-    const isEmailExists = await prisma.user.findUnique({
+    try {
+        if(!email || !name || !password){
+            return res.status(400).json({error: 'Please fill all fields'})
+         }
+         // ENSURE THEY FOLLOW A PARTICULAR FORMAT
+        const isEmailExists = await prisma.user.findUnique({
         where:{
             email:email
         }
@@ -31,7 +37,19 @@ export const register = async(req:Request, res:Response) =>{
         }
 
     })
-    return res.status(201).json(user)
+
+    const { password: excludedPassword, ...userWithoutPassword } = user;
+
+    return res.status(201).json(userWithoutPassword)
+        
+    } catch (error) {
+        res.status(500).json({error})
+    }
+
+    
+
+
+    
 }
 
 
@@ -49,9 +67,14 @@ export const login = async(req:Request, res:Response) => {
     });
     if (!user || !(await bcrypt.compare(password, user.password))) {
         return res.status(401).json({ error: 'Incorrect email or password' });
-    }   
-    return res.status(200).json(user);
+    }  
+    const token = jwt.sign({ email:user.email }, secretkey, { expiresIn: '1d' });
+    return res.status(200).json(token);
 
 
 
+}
+
+export const check = async(req:Request, res:Response) => {
+   return res.json('Carry on')
 }

@@ -26,6 +26,11 @@ model User {
 model Farm{
   id  String  @id @default(uuid())
   size Int
+  sensors Int
+  type String
+  longitude Float
+  latitude Float
+  crop String
   owner User @relation(fields: [ownerId], references: [id])
   ownerId   Int 
 }
