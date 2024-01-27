@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import {Request, Response} from 'express'
+import {Request, Response, NextFunction} from 'express'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 
@@ -29,4 +29,25 @@ export const check = async(req:Request, res:Response) => {
     } catch (error) {
       return res.status(401).json({ error: 'Invalid or expired token' });
     }
+}
+
+export async function requireAuth(req: Request, res: Response, next: NextFunction) {
+//   return next();
+    if (!req.headers || !req.headers.authorization){
+        return res.status(401).send({ message: 'No authorization headers.' });
+    }
+    
+
+    const token_bearer = req.headers.authorization.split(' ');
+    if(token_bearer.length != 2){
+        return res.status(401).send({ message: 'Malformed token.' });
+    }
+    
+    const token = token_bearer[1];
+    return jwt.verify(token, secretkey , (err, decoded) => {
+      if (err) {
+        return res.status(500).send({ auth: false, message: 'Failed to authenticate.' });
+      }
+      return next();
+    });
 }
