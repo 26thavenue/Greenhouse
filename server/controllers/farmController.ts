@@ -3,7 +3,8 @@ import prisma from '../config/index'
 
 // ADD NEW FARM ,GET ALL USER FARM , GET A FARM BY ID, UPDATE A FARM, DELETE A FARM
 
-export const addNewFarm = (req: Request,res:Response) => {
+export const addNewFarm = async(req: Request,res:Response) => {
+    
     
 }
 
