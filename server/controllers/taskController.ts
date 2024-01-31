@@ -23,3 +23,9 @@ export const createTasks = async(req: Request, res: Response) => {
     })
     return res.status(201).json(task)
 }
+
+export const getAllUserTasks = (req: Request, res: Response) => {  }
+
+export const updateUserTasks = (req: Request, res: Response) => {  }
+
+export const deleteUserTasks = (req: Request, res: Response) => {  }
